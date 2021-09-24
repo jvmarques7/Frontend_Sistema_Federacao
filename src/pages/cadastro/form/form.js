@@ -206,28 +206,28 @@ export default function FullWidthGrid() {
         {/* Documentos */}
         <Seccion>Documentos</Seccion>
         <Grid container spacing={0}>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
                 <TextField id="cpf" label="CPF" variant="outlined" onChange={e => setCpf(e.target.value)}/>
             </FormControl>
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
                 <TextField id="passaporte" label="Passaporte" variant="outlined"/>
             </FormControl>
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
                 <TextField id="rg" label="RG" variant="outlined" onChange={e => setRg(e.target.value)}/>
             </FormControl>
           </Paper>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
                 <TextField id="nacionalidade" label="Nacionalidade" variant="outlined" onChange={e => setNacionalidade(e.target.value)}/>
@@ -239,31 +239,52 @@ export default function FullWidthGrid() {
         {/* Endereço */}
         <Seccion>Endereço</Seccion>
         <Grid container spacing={0}>
-          <Grid item xs={10}>
+          <Grid item xs={6}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
                   <TextField id="logradouro" label="Logradouro" variant="outlined"/>
               </FormControl>
             </Paper>
           </Grid>
-          <Grid item xs={6} sm={2}>
+          <Grid item xs={4}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="numero" label="Número" variant="outlined"/>
+                  <TextField id="bairro" label="bairro" variant="outlined"/>
               </FormControl>
             </Paper>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={2}>
+            <Paper className={classes.paper}>
+              <FormControl fullWidth> 
+                  <TextField id="cep" label="cep" variant="outlined"/>
+              </FormControl>
+            </Paper>
+          </Grid>
+          <Grid item xs={5}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
                   <TextField id="complemento" label="Complemento" variant="outlined"/>
               </FormControl>
             </Paper>
           </Grid>
-          <Grid item xs={6} sm={4}>
+          <Grid item xs={2}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="cep" label="CEP" variant="outlined"/>
+                  <TextField id="numero" label="Número" variant="outlined"/>
+              </FormControl>
+            </Paper>
+          </Grid>
+          <Grid item xs={2}>
+            <Paper className={classes.paper}>
+              <FormControl fullWidth> 
+                  <TextField id="estado" label="estado" variant="outlined"/>
+              </FormControl>
+            </Paper>
+          </Grid>
+          <Grid item xs={3}>
+            <Paper className={classes.paper}>
+              <FormControl fullWidth> 
+                  <TextField id="cidade" label="cidade" variant="outlined"/>
               </FormControl>
             </Paper>
           </Grid>

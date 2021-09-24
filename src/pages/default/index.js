@@ -21,9 +21,6 @@ function Default (){
                     <Box display='flex' className={classes.box}>
                         <NavBar />
                         <Card className={classes.card}>
-                            <CustomizedTables>
-
-                            </CustomizedTables>
                         </Card>
                     </Box>
                 </Container>

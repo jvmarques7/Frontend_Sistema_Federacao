@@ -1,251 +1,174 @@
-import React, {useState} from 'react';
-import { makeStyles } from '@material-ui/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
-import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
-import { Seccion, Tittle } from '../style';
-// import api from '../../../config/services/api';
-// import { useHistory } from "react-router-dom";
+import React from 'react';
+import { Box } from '@material-ui/core';
+import { Grid, Paper } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { Tittle } from '../style';
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    marginTop: 35,
-    marginBottom: 35
-  },
-  paper: {
-    margin: 10,
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-  display: {
-    display: 'flex',
-    width: '100%'
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    width: '20em',
-  },
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body1,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+  background: "linear-gradient(rgb(245,245,245), white)"
+}));
+
+const Info = styled(Grid)(({ theme }) => ({
+  direcition: "column",
+  justifyContent: "flex-start"
+}));
+
+const InfoTittle = styled(Grid)(({ theme }) => ({
+  direcition: "column",
+  justifyContent: "flex-end"
 }));
 
 
-export default function FullWidthGrid() {
-  
-  // let history = useHistory();
-
-  // const [email, setEmail] = useState();
-  // const [password, setPassword] = useState();
-
-  // async function handleCadastro(){
-  //   const {data} = await api.post('user', {email, password});
-  //   localStorage.getItem('token', data.token);
-  //   history.push('/home');
-  // }
-  
-  const [atuacao, setAtuacao] = React.useState('');
-  const handleAtuacao = (event) => {
-  setAtuacao(event.target.value);
-  };
-  
-  const [modalidade, setModalidade] = React.useState('');
-  const handleModalidade = (event) => {
-  setModalidade(event.target.value);
-  };
-  
-  const [categoria, setCategoria] = React.useState('');
-  const handleCategoria = (event) => {
-  setCategoria(event.target.value);
-  };
-
-  const classes = useStyles();
+export default function FormAreaAtleta() {
 
   return (
 
-    <div className={classes.root}>
-      <Box justifyContent="space-between" display="flex">
-        <Tittle>Cadastro</Tittle>
-        <div className="footer">
-          <button type="button" className="btn">
-            Salvar
-          </button>
-        </div>
+    <div>
+      <Box sx={{ width: "100%", direction:"column", alignContent:"center", justifyContent:"center"  }}>
+          <Tittle>Meu cadastro</Tittle>
+          <Grid sx={{padding: '0 0 20px 20px'}} container rowSpacing={1.5} columnSpacing={2}>
+              <Grid item xs={12}>
+                  <Item sx={{background: "linear-gradient(lightblue, white)"}}>
+                      TIPO DE CADASTRO
+                  </Item>
+              </Grid>
+              <Grid item xs={4}>
+                  <Item>
+                      <Info container>Atuação:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={4}>
+                  <Item>
+                      <Info container>Modalidade:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={4}>
+                  <Item>
+                      <Info container>Categoria:</Info>
+                  </Item>
+              </Grid>
+          </Grid>
+          <Grid sx={{padding: '20px'}} container rowSpacing={1.5} columnSpacing={2}>
+              <Grid item xs={12}>
+                  <Item sx={{background: "linear-gradient(lightblue, white)"}}>
+                      DADOS PESSOAIS
+                  </Item>
+              </Grid>
+              <Grid item xs={8}>
+                  <Item>
+                      <Info container>Nome Completo:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={4}>
+                  <Item>
+                      <Info container>Sexo:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={4}>
+                  <Item>
+                      <Info container>Data de Nascimento:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={3}>
+                  <Item>
+                      <Info container>Naturalidade:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={5}>
+                  <Item>
+                      <Info container>Clube:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={3}>
+                  <Item>
+                  <Info container>Telefone:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={3}>
+                  <Item>
+                      <Info container>Celular:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={6}>
+                  <Item>
+                      <Info container>Email:</Info>
+                  </Item>
+              </Grid>
+          </Grid>
+          <Grid sx={{padding: '20px'}} container rowSpacing={1.5} columnSpacing={2}>
+              <Grid item xs={12}>
+                  <Item sx={{background: "linear-gradient(lightblue, white)"}}>
+                      DOCUMENTOS
+                  </Item>
+              </Grid>
+              <Grid item xs={3}>
+                  <Item>
+                      <Info container>CPF:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={3}>
+                  <Item>
+                      <Info container>RG:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={3}>
+                  <Item>
+                      <Info container>Passaporte:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={3}>
+                  <Item>
+                      <Info container>Naturalidade:</Info>
+                  </Item>
+              </Grid>
+          </Grid>
+          <Grid sx={{padding: '20px'}} container rowSpacing={1.5} columnSpacing={2}>
+              <Grid item xs={12}>
+                  <Item sx={{background: "linear-gradient(lightblue, white)"}}>
+                      ENDEREÇO
+                  </Item>
+              </Grid>
+              <Grid item xs={6}>
+                  <Item>
+                      <Info container>Logradouro:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={4}>
+                  <Item>
+                      <Info container>Bairro:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={2}>
+                  <Item>
+                      <Info container>CEP:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={5}>
+                  <Item>
+                      <Info container>Complemento:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={2}>
+                  <Item>
+                      <Info container>Número:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={2}>
+                  <Item>
+                      <Info container>Estado:</Info>
+                  </Item>
+              </Grid>
+              <Grid item xs={3}>
+                  <Item>
+                      <Info container>Cidade:</Info>
+                  </Item>
+              </Grid>
+          </Grid>
       </Box>
-      <Seccion>Atuação</Seccion>
-      <FormControl variant="filled" className={classes.formControl}>
-        <InputLabel id="simple-select-filled-label">Atuacao</InputLabel>
-        <Select
-          labelId="simple-select-filled-label"
-          id="simple-select-filled"
-          value={atuacao}
-          onChange={handleAtuacao}
-        >
-          <MenuItem value={1}>Jogador</MenuItem>
-          <MenuItem value={2}>Arbitro</MenuItem>
-          <MenuItem value={3}>Técnico</MenuItem>
-        </Select>
-      </FormControl>
-
-      <FormControl variant="filled" className={classes.formControl}>
-        <InputLabel id="simple-select-filled-label">Modalidade</InputLabel>
-        <Select
-          labelId="simple-select-filled-label"
-          id="simple-select-filled"
-          value={modalidade}
-          onChange={handleModalidade}
-        >
-          <MenuItem value={1}>Adulto</MenuItem>
-          <MenuItem value={2}>Paradesporto</MenuItem>
-          <MenuItem value={3}>Base</MenuItem>
-        </Select>
-      </FormControl>
-
-      <FormControl variant="filled" className={classes.formControl}>
-        <InputLabel id="simple-select-filled-label">Categoria</InputLabel>
-        <Select
-          labelId="simple-select-filled-label"
-          id="simple-select-filled"
-          value={categoria}
-          onChange={handleCategoria}
-        >
-          <MenuItem value={1}>Adulto</MenuItem>
-          <MenuItem value={2}>Paradesporto</MenuItem>
-          <MenuItem value={3}>Base</MenuItem>
-        </Select>
-      </FormControl>
-
-      {/* Dados Pessoais */}
-      <Seccion>Dados Pessoais</Seccion>
-      <Grid container spacing={0}>
-        <Grid item xs={10}>
-          <Paper className={classes.paper}>
-            <FormControl fullWidth> 
-                <TextField id="nomeCompleto" label="Nome Completo" variant="outlined"/>
-            </FormControl>
-          </Paper>
-        </Grid>
-        <Grid item xs={6} sm={2}>
-          <Paper className={classes.paper}>
-            <FormControl fullWidth> 
-                <TextField id="sexo" label="Sexo" variant="outlined"/>
-            </FormControl>
-          </Paper>
-        </Grid>
-        <Grid item xs={6} sm={4}>
-          <Paper className={classes.paper}>
-            <FormControl fullWidth> 
-              <TextField
-                id="outlined-number"
-                label="Data de Nascimento"
-                type="date"
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                variant="outlined"
-              />
-            </FormControl>
-          </Paper>
-        </Grid>
-        <Grid item xs={6} sm={3}>
-          <Paper className={classes.paper}>
-            <FormControl fullWidth> 
-                <TextField id="naturalidade" label="Naturalidade" variant="outlined"/>
-            </FormControl>
-          </Paper>
-        </Grid>
-        <Grid item xs={6} sm={5}>
-          <Paper className={classes.paper}>
-            <FormControl fullWidth> 
-                <TextField id="clube" label="Clube" variant="outlined"/>
-            </FormControl>
-          </Paper>
-        </Grid>
-        <Grid item xs={6} sm={4}>
-          <Paper className={classes.paper}>
-            <FormControl fullWidth> 
-                <TextField id="telefone" label="Telefone" variant="outlined"/>
-            </FormControl>
-          </Paper>
-        </Grid>
-        <Grid item xs={6} sm={4}>
-          <Paper className={classes.paper}>
-            <FormControl fullWidth> 
-                <TextField id="celular" label="Celular" variant="outlined"/>
-            </FormControl>
-          </Paper>
-        </Grid>
-        <Grid item xs={6} sm={4}>
-          <Paper className={classes.paper}>
-            <FormControl fullWidth> 
-                <TextField id="email" label="Email" variant="outlined"/>
-            </FormControl>
-          </Paper>
-        </Grid>
-      </Grid>          
-        {/* Documentos */}
-        <Seccion>Documentos</Seccion>
-        <Grid container spacing={0}>
-        <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}>
-            <FormControl fullWidth> 
-                <TextField id="cpf" label="CPF" variant="outlined"/>
-            </FormControl>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}>
-            <FormControl fullWidth> 
-                <TextField id="passaporte" label="Passaporte" variant="outlined"/>
-            </FormControl>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}>
-            <FormControl fullWidth> 
-                <TextField id="rg" label="RG" variant="outlined"/>
-            </FormControl>
-          </Paper>
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <Paper className={classes.paper}>
-            <FormControl fullWidth> 
-                <TextField id="nacionalidade" label="Nacionalidade" variant="outlined"/>
-            </FormControl>
-          </Paper>
-        </Grid>
-        </Grid>
-
-        {/* Endereço */}
-        <Seccion>Endereço</Seccion>
-        <Grid container spacing={0}>
-          <Grid item xs={10}>
-            <Paper className={classes.paper}>
-              <FormControl fullWidth> 
-                  <TextField id="logradouro" label="Logradouro" variant="outlined"/>
-              </FormControl>
-            </Paper>
-          </Grid>
-          <Grid item xs={6} sm={2}>
-            <Paper className={classes.paper}>
-              <FormControl fullWidth> 
-                  <TextField id="numero" label="Número" variant="outlined"/>
-              </FormControl>
-            </Paper>
-          </Grid>
-          <Grid item xs={8}>
-            <Paper className={classes.paper}>
-              <FormControl fullWidth> 
-                  <TextField id="complemento" label="Complemento" variant="outlined"/>
-              </FormControl>
-            </Paper>
-          </Grid>
-          <Grid item xs={6} sm={4}>
-            <Paper className={classes.paper}>
-              <FormControl fullWidth> 
-                  <TextField id="cep" label="CEP" variant="outlined"/>
-              </FormControl>
-            </Paper>
-          </Grid>
-        </Grid>
     </div>
   );
 }

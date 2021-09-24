@@ -1,6 +1,6 @@
 import React from "react";
 import "../../App.scss";
-import { Login, Register } from "../../pages/login";
+import { Login, Register } from "./login";
 
 class Initial extends React.Component {
   constructor(props) {

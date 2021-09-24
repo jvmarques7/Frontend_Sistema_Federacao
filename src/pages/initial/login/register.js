@@ -1,6 +1,6 @@
 import React, {useState} from "react";
-import loginImg from "../../login.svg";
-import api from '../../config/services/api';
+import loginImg from "../../../login.svg";
+import api from '../../../config/services/api';
 import { useHistory } from "react-router-dom";
 
 export function Register (props){
@@ -18,7 +18,7 @@ export function Register (props){
 
   return (
     <div className="base-container" ref={props.containerRef}>
-      <div className="header">Register</div>
+      <div className="header">Registre-se</div>
       <div className="content">
         <div className="image">
           <img src={loginImg} />
@@ -29,12 +29,12 @@ export function Register (props){
             <input type="email" name="email" placeholder="email" onChange={e => setEmail(e.target.value)}/>
           </div>
           <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input type="text" name="email" placeholder="email" />
+            <label htmlFor="password">Senha</label>
+            <input type="password" name="senha" placeholder="senha" />
           </div>
           <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input type="text" name="password" placeholder="password" onChange={e => setPassword(e.target.value)} />
+            <label htmlFor="password">Repita sua senha</label>
+            <input type="password" name="senha2" placeholder="senha" onChange={e => setPassword(e.target.value)} />
           </div>
         </div>
       </div>

@@ -9,7 +9,7 @@ export const Seccion = styled.div`
 `
 
 export const Tittle = styled.div`
-    margin: 8px;
+    margin: 20px 0 0 20px;
     margin-bottom: 25px;
     font-family: Arial, sans-serif;
     font-weight: bold;
@@ -22,6 +22,12 @@ export const useStyles = makeStyles({
       padding: 16,
       width: 275,
       maxHeight: 300,
-    }
+    },
+    card:{
+      margin: 16,
+      width: '100%',
+      maxWidth: '1280'
+    } 
   });
+  
   

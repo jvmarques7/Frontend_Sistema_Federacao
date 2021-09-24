@@ -15,7 +15,7 @@ export const useStyles = makeStyles({
     margin: 16,
     width: '100%',
     maxWidth: '1280',
-    display: 'flex',
+    display: 'flex'
   } 
 });
 

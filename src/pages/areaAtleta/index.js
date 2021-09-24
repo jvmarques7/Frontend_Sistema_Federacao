@@ -1,10 +1,12 @@
 import React from "react";
 import { Container, Box, Card} from '@material-ui/core';
-import FullWidthGrid from './form/form';
+import FormAreaAtleta from './form/form';
 import { Header } from "../header/header";
 import NavBar from "../../components/navBar/style";
 import { component } from "../../components/anotherComponents";
 import { Main } from "../../components/anotherComponents.js";
+import { Grid, Paper } from "@mui/material";
+import { styled } from "@mui/material/styles";
 
 export function AreaAtleta(){
 
@@ -18,7 +20,7 @@ export function AreaAtleta(){
                     <Box display='flex' className={classes.box}>
                         <NavBar />
                         <Card className={classes.card}>
-                            <FullWidthGrid></FullWidthGrid>
+                            <FormAreaAtleta />
                         </Card>
                     </Box>
                 </Container>

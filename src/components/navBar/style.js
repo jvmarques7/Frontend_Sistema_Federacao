@@ -11,6 +11,7 @@ import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import { Paper } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 function HomeIcon(props) {
   return (
@@ -31,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 16,
     width: 225,
     maxHeight: 300,
+    background: 'green'
   },
   card:{
     margin: 16,
@@ -58,11 +60,11 @@ export default function NavBar() {
       if(index == 1){
         history.push('/area_atleta');
       }
-      if(index == 2){
-        // history.push('/home');
+      if(index == 4){
+        history.push('/');
       }
       if(index == 3){
-        // history.push('/home');
+        history.push('/calendario');
       }
 
   }
@@ -75,7 +77,7 @@ export default function NavBar() {
             button={true} 
             selected={selectedIndex === 0}
             onClick={(event) => handleListItemClick(event, 0)}>
-            <ListItemIcon>
+            <ListItemIcon >
               <HomeIcon />
             </ListItemIcon>
             <ListItemText primary="Home" />
@@ -91,19 +93,8 @@ export default function NavBar() {
             <ListItemText primary="Área do Atleta" />
           </ListItem>
         </List>
-        <Divider />
         <List component="nav" aria-label="secondary mailbox folder">
-          <ListItem
-            button={true}
-            selected={selectedIndex === 2}
-            onClick={(event) => handleListItemClick(event, 2)}
-          >
-            <ListItemIcon>
-              <ContactSupportIcon />
-            </ListItemIcon>
-            <ListItemText primary="Suporte" />
-          </ListItem>
-          <ListItem
+        <ListItem
             button={true}
             selected={selectedIndex === 3}
             onClick={(event) => handleListItemClick(event, 3)}
@@ -112,6 +103,30 @@ export default function NavBar() {
               <CalendarTodayIcon />
             </ListItemIcon>
             <ListItemText primary="Calendário" />
+          </ListItem>
+          <ListItem
+            button={true}
+            selected={selectedIndex === 2}
+            disabled
+            onClick={(event) => handleListItemClick(event, 2)}
+          >
+            <ListItemIcon>
+              <ContactSupportIcon />
+            </ListItemIcon>
+            <ListItemText primary="Suporte - Em breve..." />
+          </ListItem>
+        </List>
+        <Divider />
+        <List component="nav" aria-label="secondary mailbox folder">
+        <ListItem
+            button={true}
+            selected={selectedIndex === 4}
+            onClick={(event) => handleListItemClick(event, 4)}
+          >
+            <ListItemIcon>
+              <LogoutIcon />
+            </ListItemIcon>
+            <ListItemText primary="Sair"/>
           </ListItem>
         </List>
       </Paper>

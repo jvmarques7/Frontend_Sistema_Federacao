@@ -1,8 +1,9 @@
 import React, {useState} from "react";
-import api from '../../config/services/api'
-import loginImg from "../../login.svg";
-import history from "../../config/services/history";
+import api from '../../../config/services/api'
+import loginImg from "../../../login.svg";
+import history from "../../../config/services/history";
 import { useHistory } from "react-router-dom";
+import { sign } from "jsonwebtoken";
 
  export function Login (props) {
 
@@ -14,8 +15,10 @@ import { useHistory } from "react-router-dom";
    async function handleLogin(){
       const {data} = await api.post('login', {email, password});
       localStorage.setItem('token', data.token);
-      history.push('/home');
+      history.push('/home');   
     }
+
+    
 
     return (
       <div className="base-container" ref={props.containerRef}>
@@ -30,8 +33,8 @@ import { useHistory } from "react-router-dom";
               <input type="email" name="email" placeholder="email" onChange={e => setEmail(e.target.value)} />
             </div>
             <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input type="password" name="password" placeholder="password"  onChange={e => setPassword(e.target.value)}/>
+              <label htmlFor="password">Senha</label>
+              <input type="password" name="senha" placeholder="senha"  onChange={e => setPassword(e.target.value)}/>
             </div>
           </div>
         </div>
@@ -40,6 +43,7 @@ import { useHistory } from "react-router-dom";
             Login
           </button>
         </div>
+        <a href="blank"><h5>Esqueci minha senha</h5></a>
       </div>
     );
   
