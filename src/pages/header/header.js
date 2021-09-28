@@ -17,10 +17,10 @@ export function Header (){
                 <Logo src="\images\logo.png" alt="logo">
                 </Logo>
                 <RightSize>
-                    <Avatar className={classes.avatar} alt="Joao Victor" src="/"/>
-                    <Button variant="contained" color="primary" className={classes.butt}>
+                    <Avatar alt="Usuario" src="/"/>
+                    {/* <Button variant="contained" color="primary" className={classes.butt}>
                         Logout
-                    </Button>
+                    </Button> */}
                 </RightSize>
             </Toolbar>
         </AppBar>

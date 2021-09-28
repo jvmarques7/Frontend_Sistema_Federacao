@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
   },
   formControl: {
     padding: 16,
-    width: '20em',
+    width: '30%',
   },
 }));
 
@@ -45,7 +45,7 @@ export default function FullWidthGrid() {
   const [modalidade_id, setModalidade_id] = useState();
   const [email, setEmail] = useState();
 
-  async function handleCadastro(email){
+  async function handleCadastro(){
     const {data} = await api.put('/completar_cadastro', {
         nomeCompleto, 
         rg, 
@@ -80,63 +80,65 @@ export default function FullWidthGrid() {
 
   return (
 
-    <div className={classes.root}>
+    <Paper>
+    <Box padding="20px">
       <Box justifyContent="space-between" display="flex">
         <Tittle>Cadastro</Tittle>
-        <div className="footer">
+        <Box margin="10px">
           <button type="button" className="btn" onClick={handleCadastro}>
             Salvar
           </button>
-        </div>
+        </Box>
       </Box>
+      
       <Seccion>Atuação</Seccion>
-      <Box className={classes.display}>
-      <FormControl variant="filled" className={classes.formControl}>
-        <InputLabel id="simple-select-filled-label" >Atuacao
-        </InputLabel>
-        <Select
-          labelId="simple-select-filled-label"
-          id="simple-select-filled"
-          value={atuacao}
-          onChange={handleAtuacao}
-        >
-          <MenuItem value={1}>Jogador</MenuItem>
-          <MenuItem value={2}>Arbitro</MenuItem>
-          <MenuItem value={3}>Técnico</MenuItem>
-        </Select>
-      </FormControl>
+      <Box justifyContent="space-between" display="flex" padding="7px 9px 9px 9px">
+        <FormControl variant="filled" className={classes.formControl} >
+          <InputLabel id="simple-select-filled-label">Atuacao
+          </InputLabel>
+          <Select
+            labelId="simple-select-filled-label"
+            id="simple-select-filled"
+            value={atuacao}
+            onChange={handleAtuacao}
+          >
+            <MenuItem value={1}>Jogador</MenuItem>
+            <MenuItem value={2}>Arbitro</MenuItem>
+            <MenuItem value={3}>Técnico</MenuItem>
+          </Select>
+        </FormControl>
 
-      <FormControl variant="filled" className={classes.formControl}>
-        <InputLabel id="simple-select-filled-label">Modalidade</InputLabel>
-        <Select
-          labelId="simple-select-filled-label"
-          id="simple-select-filled"
-          value={modalidade}
-          onChange={handleModalidade}
-        >
-          <MenuItem value={1}>Adulto</MenuItem>
-          <MenuItem value={2}>Paradesporto</MenuItem>
-          <MenuItem value={3}>Base</MenuItem>
-        </Select>
-      </FormControl>
+        <FormControl variant="filled" className={classes.formControl}>
+          <InputLabel id="simple-select-filled-label">Modalidade</InputLabel>
+          <Select
+            labelId="simple-select-filled-label"
+            id="simple-select-filled"
+            value={modalidade}
+            onChange={handleModalidade}
+          >
+            <MenuItem value={1}>Adulto</MenuItem>
+            <MenuItem value={2}>Paradesporto</MenuItem>
+            <MenuItem value={3}>Base</MenuItem>
+          </Select>
+        </FormControl>
 
-      <FormControl variant="filled" className={classes.formControl}>
-        <InputLabel id="simple-select-filled-label">Categoria</InputLabel>
-        <Select
-          labelId="simple-select-filled-label"
-          id="simple-select-filled"
-          value={categoria}
-          onChange={handleCategoria}
-        >
-          <MenuItem value={2}>Masculino</MenuItem>
-          <MenuItem value={3}>Feminino</MenuItem>
-        </Select>
-      </FormControl>
+        <FormControl variant="filled" className={classes.formControl}>
+          <InputLabel id="simple-select-filled-label">Categoria</InputLabel>
+          <Select
+            labelId="simple-select-filled-label"
+            id="simple-select-filled"
+            value={categoria}
+            onChange={handleCategoria}
+          >
+            <MenuItem value={2}>Masculino</MenuItem>
+            <MenuItem value={3}>Feminino</MenuItem>
+          </Select>
+        </FormControl>
       </Box>
 
       {/* Dados Pessoais */}
       <Seccion>Dados Pessoais</Seccion>
-      <Grid container spacing={0}>
+      <Grid container paddingBottom="20px" spacing={0}>
         <Grid item xs={10}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
@@ -198,14 +200,14 @@ export default function FullWidthGrid() {
         <Grid item xs={6} sm={4}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="email" label="Email" variant="outlined" onChange={e => setEmail(e.target.value)}/>
+                <TextField id="email" label="Email" value={localStorage.email} onChange={e => setEmail(e.target.value)}/>
             </FormControl>
           </Paper>
         </Grid>
       </Grid>          
         {/* Documentos */}
         <Seccion>Documentos</Seccion>
-        <Grid container spacing={0}>
+        <Grid container paddingBottom="20px" spacing={0}>
         <Grid item xs={12} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
@@ -238,7 +240,7 @@ export default function FullWidthGrid() {
 
         {/* Endereço */}
         <Seccion>Endereço</Seccion>
-        <Grid container spacing={0}>
+        <Grid container paddingBottom="20px" spacing={0}>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
@@ -289,7 +291,8 @@ export default function FullWidthGrid() {
             </Paper>
           </Grid>
         </Grid>
-    </div>
+    </Box>
+    </Paper>
   );
 }
 

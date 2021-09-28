@@ -33,7 +33,7 @@ export const HeaderHome = styled.header`
 
 export const Logo = styled.img`
     padding: 0 50px;
-    max-width: 200px;
+    max-width: 100px;
 `
 export const RightSize = styled.div`
     display: flex;
@@ -53,8 +53,5 @@ export const useStyles = makeStyles((theme)=>({
     },
     appBar:{
         color: 'inherit',
-    },
-    avatar:{
-        margin: 15
     }
   }));

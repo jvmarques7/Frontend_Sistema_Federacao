@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
   } 
 }));
 
-export default function NavBar() {
+export default function NavBarAdmin() {
 
   var history = useHistory();
 
@@ -55,17 +55,20 @@ export default function NavBar() {
       );
       console.log(index);
 
-      if(index == 0){
-        history.push('/home');
-      }
-      if(index == 1){
-        history.push('/area_atleta');
-      }
+    //   if(index == 0){
+    //     history.push('/home');
+    //   }
+    //   if(index == 1){
+    //     history.push('/area_atleta');
+    //   }
+    //   if(index == 4){
+    //     history.push('/');
+    //   }
+    //   if(index == 3){
+    //     history.push('/calendario');
+    //   }
       if(index == 4){
-        history.push('/');
-      }
-      if(index == 3){
-        history.push('/calendario');
+        history.push('/intranet');
       }
 
   }
@@ -88,9 +91,9 @@ export default function NavBar() {
             onClick={(event) => handleListItemClick(event, 1)}
           >
             <ListItemIcon>
-              <DraftsIcon />
+              <PersonIcon />
             </ListItemIcon>
-            <ListItemText primary="Área do Atleta" />
+            <ListItemText primary="Clientes" />
           </ListItem>
         <ListItem
             button={true}
@@ -100,9 +103,9 @@ export default function NavBar() {
             <ListItemIcon>
               <CalendarTodayIcon />
             </ListItemIcon>
-            <ListItemText primary="Calendário" />
+            <ListItemText primary="Gerenciador de Eventos" />
           </ListItem>
-          <ListItem
+          {/* <ListItem
             button={true}
             selected={selectedIndex === 2}
             disabled
@@ -112,7 +115,7 @@ export default function NavBar() {
               <ContactSupportIcon />
             </ListItemIcon>
             <ListItemText primary="Suporte - Em breve..." />
-          </ListItem>
+          </ListItem> */}
         <Divider />
         <List component="nav" aria-label="secondary mailbox folder">
         <ListItem

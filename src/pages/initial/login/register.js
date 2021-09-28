@@ -1,7 +1,8 @@
 import React, {useState} from "react";
-import loginImg from "../../../login.svg";
+import loginImg from "../../../login.png";
 import api from '../../../config/services/api';
 import { useHistory } from "react-router-dom";
+import {Box} from "@material-ui/core"
 
 export function Register (props){
 
@@ -13,15 +14,16 @@ export function Register (props){
      async function handleRegister(){
         const {data} = await api.post('user', {email, password});
         localStorage.setItem('token', data.token);
+        localStorage.setItem('email', email);
         history.push('/cadastro');
       }
 
   return (
     <div className="base-container" ref={props.containerRef}>
       <div className="header">Registre-se</div>
-      <div className="content">
+      <Box className="content" paddingTop="30px">
         <div className="image">
-          <img src={loginImg} />
+          <img src={loginImg}/>
         </div>
         <div className="form">
           <div className="form-group">
@@ -37,7 +39,7 @@ export function Register (props){
             <input type="password" name="senha2" placeholder="senha" onChange={e => setPassword(e.target.value)} />
           </div>
         </div>
-      </div>
+      </Box>
       <div className="footer">
         <button type="button" className="btn" onClick={handleRegister}>
           Register

@@ -30,9 +30,9 @@ export default function FormAreaAtleta() {
     <div>
       <Box sx={{ width: "100%", direction:"column", alignContent:"center", justifyContent:"center"  }}>
           <Tittle>Meu cadastro</Tittle>
-          <Grid sx={{padding: '0 0 20px 20px'}} container rowSpacing={1.5} columnSpacing={2}>
+          <Grid sx={{padding: '0 20px 20px 20px'}} container rowSpacing={1.5} columnSpacing={2}>
               <Grid item xs={12}>
-                  <Item sx={{background: "linear-gradient(lightblue, white)"}}>
+                  <Item sx={{fontWeight: "bold", background: "linear-gradient(lightblue, white)"}}>
                       TIPO DE CADASTRO
                   </Item>
               </Grid>
@@ -54,7 +54,7 @@ export default function FormAreaAtleta() {
           </Grid>
           <Grid sx={{padding: '20px'}} container rowSpacing={1.5} columnSpacing={2}>
               <Grid item xs={12}>
-                  <Item sx={{background: "linear-gradient(lightblue, white)"}}>
+                  <Item sx={{fontWeight: "bold", background: "linear-gradient(lightblue, white)"}}>
                       DADOS PESSOAIS
                   </Item>
               </Grid>
@@ -101,7 +101,7 @@ export default function FormAreaAtleta() {
           </Grid>
           <Grid sx={{padding: '20px'}} container rowSpacing={1.5} columnSpacing={2}>
               <Grid item xs={12}>
-                  <Item sx={{background: "linear-gradient(lightblue, white)"}}>
+                  <Item sx={{fontWeight: "bold", background: "linear-gradient(lightblue, white)"}}>
                       DOCUMENTOS
                   </Item>
               </Grid>
@@ -128,7 +128,7 @@ export default function FormAreaAtleta() {
           </Grid>
           <Grid sx={{padding: '20px'}} container rowSpacing={1.5} columnSpacing={2}>
               <Grid item xs={12}>
-                  <Item sx={{background: "linear-gradient(lightblue, white)"}}>
+                  <Item sx={{fontWeight: "bold", background: "linear-gradient(lightblue, white)"}}>
                       ENDEREÇO
                   </Item>
               </Grid>
