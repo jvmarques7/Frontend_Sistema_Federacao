@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import { Seccion, Tittle } from '../style';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import api from '../../../config/services/api';
 // import api from '../../../config/services/api';
 // import { useHistory } from "react-router-dom";
@@ -31,6 +31,8 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function FullWidthGrid() {
+
+  const id = useParams();
   
   let history = useHistory();
 
@@ -40,38 +42,48 @@ export default function FullWidthGrid() {
   const [nacionalidade, setNacionalidade] = useState();
   const [dt_nascimento, setDt_Nascimento] = useState();
   const [sexo, setSexo] = useState();
-  const [atuacao_id, setAtuacao_id] = useState();
-  const [categoria_id, setCategoria_id] = useState();
-  const [modalidade_id, setModalidade_id] = useState();
+  const [naturalidade, setNaturalidade] = useState();
+  const [clube, setClube] = useState();
+  const [telefone, setTelefone] = useState();
+  const [celular, setCelular] = useState();
+  const [passaporte, setPassaporte] = useState();
   const [email, setEmail] = useState();
 
   async function handleCadastro(){
-    const {data} = await api.put('/completar_cadastro', {
-        nomeCompleto, 
-        rg, 
-        cpf, 
-        nacionalidade,
-        dt_nascimento, 
-        sexo, 
-        modalidade_id, 
-        categoria_id,
-        atuacao_id,
-        email
+
+    const {data} = await api.put('completar_cadastro', {
+      id,
+      cpf,
+      rg,
+      email,
+      name: nomeCompleto,
+      dt_nascimento,
+      naturalidade,
+      clube,
+      sexo,
+      telefone,
+      celular,
+      passaporte,
+      nacionalidade,
+      atuacao_id,
+      modalidade_id,
+      categoria_id
     });
+    console.log(data)
     history.push('/home');
   }
   
-  const [atuacao, setAtuacao] = React.useState('');
+  const [atuacao_id, setAtuacao] = React.useState('');
   const handleAtuacao = (event) => {
   setAtuacao(event.target.value);
   };
   
-  const [modalidade, setModalidade] = React.useState('');
+  const [modalidade_id, setModalidade] = React.useState('');
   const handleModalidade = (event) => {
   setModalidade(event.target.value);
   };
   
-  const [categoria, setCategoria] = React.useState('');
+  const [categoria_id, setCategoria] = React.useState('');
   const handleCategoria = (event) => {
   setCategoria(event.target.value);
   };
@@ -99,7 +111,7 @@ export default function FullWidthGrid() {
           <Select
             labelId="simple-select-filled-label"
             id="simple-select-filled"
-            value={atuacao}
+            value={atuacao_id}
             onChange={handleAtuacao}
           >
             <MenuItem value={1}>Jogador</MenuItem>
@@ -113,12 +125,16 @@ export default function FullWidthGrid() {
           <Select
             labelId="simple-select-filled-label"
             id="simple-select-filled"
-            value={modalidade}
+            value={modalidade_id}
             onChange={handleModalidade}
           >
             <MenuItem value={1}>Adulto</MenuItem>
             <MenuItem value={2}>Paradesporto</MenuItem>
-            <MenuItem value={3}>Base</MenuItem>
+            <MenuItem value={3}>Juvenil</MenuItem>
+            <MenuItem value={4}>Mirim</MenuItem>
+            <MenuItem value={5}>Infanto-Juvenil</MenuItem>
+            <MenuItem value={6}>Infantil</MenuItem>
+            <MenuItem value={7}>Master</MenuItem>
           </Select>
         </FormControl>
 
@@ -127,11 +143,11 @@ export default function FullWidthGrid() {
           <Select
             labelId="simple-select-filled-label"
             id="simple-select-filled"
-            value={categoria}
+            value={categoria_id}
             onChange={handleCategoria}
           >
+            <MenuItem value={1}>Feminino</MenuItem>
             <MenuItem value={2}>Masculino</MenuItem>
-            <MenuItem value={3}>Feminino</MenuItem>
           </Select>
         </FormControl>
       </Box>
@@ -172,35 +188,35 @@ export default function FullWidthGrid() {
         <Grid item xs={6} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="naturalidade" label="Naturalidade" variant="outlined"/>
+                <TextField id="naturalidade" label="Naturalidade" variant="outlined" onChange={e => setNaturalidade(e.target.value)}/>
             </FormControl>
           </Paper>
         </Grid>
         <Grid item xs={6} sm={5}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="clube" label="Clube" variant="outlined"/>
+                <TextField id="clube" label="Clube" variant="outlined" onChange={e => setClube(e.target.value)}/>
             </FormControl>
           </Paper>
         </Grid>
         <Grid item xs={6} sm={4}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="telefone" label="Telefone" variant="outlined"/>
+                <TextField id="telefone" label="Telefone" variant="outlined" onChange={e => setTelefone(e.target.value)}/>
             </FormControl>
           </Paper>
         </Grid>
         <Grid item xs={6} sm={4}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="celular" label="Celular" variant="outlined"/>
+                <TextField id="celular" label="Celular" variant="outlined" onChange={e => setCelular(e.target.value)}/>
             </FormControl>
           </Paper>
         </Grid>
         <Grid item xs={6} sm={4}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="email" label="Email" value={localStorage.email} onChange={e => setEmail(e.target.value)}/>
+                <TextField id="email" label="Email" onChange={e => setEmail(e.target.value)}/>
             </FormControl>
           </Paper>
         </Grid>
@@ -218,7 +234,7 @@ export default function FullWidthGrid() {
         <Grid item xs={12} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="passaporte" label="Passaporte" variant="outlined"/>
+                <TextField id="passaporte" label="Passaporte" variant="outlined" onChange={e => setPassaporte(e.target.value)}/>
             </FormControl>
           </Paper>
         </Grid>
@@ -241,10 +257,17 @@ export default function FullWidthGrid() {
         {/* Endereço */}
         <Seccion>Endereço</Seccion>
         <Grid container paddingBottom="20px" spacing={0}>
+          <Grid item xs={2}>
+            <Paper className={classes.paper}>
+              <FormControl fullWidth> 
+                  <TextField id="cep" label="cep" variant="outlined"/>
+              </FormControl>
+            </Paper>
+          </Grid>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="logradouro" label="Logradouro" variant="outlined"/>
+                  <TextField id="logradouro" label="Logradouro" variant="outlined" />
               </FormControl>
             </Paper>
           </Grid>
@@ -252,13 +275,6 @@ export default function FullWidthGrid() {
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
                   <TextField id="bairro" label="bairro" variant="outlined"/>
-              </FormControl>
-            </Paper>
-          </Grid>
-          <Grid item xs={2}>
-            <Paper className={classes.paper}>
-              <FormControl fullWidth> 
-                  <TextField id="cep" label="cep" variant="outlined"/>
               </FormControl>
             </Paper>
           </Grid>

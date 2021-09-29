@@ -13,9 +13,11 @@ export function Register (props){
   
      async function handleRegister(){
         const {data} = await api.post('user', {email, password});
+        console.log(data);
         localStorage.setItem('token', data.token);
+        localStorage.setItem('id', data.id);
         localStorage.setItem('email', email);
-        history.push('/cadastro');
+        history.push(`/cadastro/${data.id}`);
       }
 
   return (

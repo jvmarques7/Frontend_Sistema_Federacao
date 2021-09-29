@@ -15,7 +15,7 @@ import { Home } from '../internal/home';
             <Switch>
                 {/* Rotas Usuários */}
                 <Route path="/" exact component={Initial} />
-                <Route path="/cadastro" component={Cadastro} />
+                <Route path="/cadastro/:id" component={Cadastro} />
                 <Route path="/home" component={Default} />
                 <Route path="/area_atleta" component={AreaAtleta} />
                 <Route path="/calendario" component={Calendar} />
