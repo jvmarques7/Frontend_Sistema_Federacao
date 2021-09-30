@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { makeStyles } from '@material-ui/styles';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -6,6 +6,9 @@ import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from '@mate
 import { Seccion, Tittle } from '../style';
 import { useHistory, useParams } from 'react-router';
 import api from '../../../config/services/api';
+import cep from 'cep-promise';
+import Portal from '@mui/material/Portal';
+import { CpfFormatCustom, PhoneFormatNumber, TelFormatNumber } from '../../../components/mask/maskCpf';
 // import api from '../../../config/services/api';
 // import { useHistory } from "react-router-dom";
 
@@ -36,6 +39,9 @@ export default function FullWidthGrid() {
   
   let history = useHistory();
 
+  const [show, setShow] = useState(false);
+  const container = React.useRef(null);
+
   const [nomeCompleto, setNomeCompleto] = useState();
   const [rg, setRg] = useState();
   const [cpf, setCpf] = useState();
@@ -48,6 +54,14 @@ export default function FullWidthGrid() {
   const [celular, setCelular] = useState();
   const [passaporte, setPassaporte] = useState();
   const [email, setEmail] = useState();
+  const [zipCode, setZipCode] = useState("");
+  const [adress, setAdress] = useState({});
+  const [logradouro, setLogradouro] = useState();
+  const [bairro, setBairro] = useState();
+  const [cidade, setCidade] = useState();
+  const [estado, setEstado] = useState();
+  const [numero, setNumero] = useState();
+  const [complemento, setComplemento] = useState();
 
   async function handleCadastro(){
 
@@ -67,7 +81,15 @@ export default function FullWidthGrid() {
       nacionalidade,
       atuacao_id,
       modalidade_id,
-      categoria_id
+      categoria_id,
+      cep : zipCode,
+      logradouro,
+      complemento,
+      bairro,
+      numero,
+      cidade,
+      estado,
+      user_id: id
     });
     console.log(data)
     history.push('/home');
@@ -90,6 +112,49 @@ export default function FullWidthGrid() {
 
   const classes = useStyles();
 
+  useEffect(() => {
+    async function getAddressData(){
+      if(zipCode.length >= 8 ){
+        const response = await cep(zipCode);
+        setAdress(response);
+        setShow(!show)
+        console.log(response);
+      }
+    }
+    
+    getAddressData();
+  }, [zipCode])
+
+// useState -> Masks
+  const [values, setValues] = React.useState({
+    cpf: '',
+    telefone: '',
+    celular: ''
+
+  });
+  const handleCpf = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+    setCpf(e.target.value)
+  };
+  const handleTel = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+    setTelefone(e.target.value)
+  };
+  const handleCel = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+    setCelular(e.target.value)
+  };
+
+
   return (
 
     <Paper>
@@ -103,6 +168,7 @@ export default function FullWidthGrid() {
         </Box>
       </Box>
       
+      {/* Atuacao */}
       <Seccion>Atuação</Seccion>
       <Box justifyContent="space-between" display="flex" padding="7px 9px 9px 9px">
         <FormControl variant="filled" className={classes.formControl} >
@@ -202,14 +268,26 @@ export default function FullWidthGrid() {
         <Grid item xs={6} sm={4}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="telefone" label="Telefone" variant="outlined" onChange={e => setTelefone(e.target.value)}/>
+                <TextField id="telefone" label="Telefone" variant="outlined" onChange={handleTel}
+                  value={values.telefone}
+                  name="telefone"
+                  InputProps={{
+                    inputComponent: TelFormatNumber,
+                  }}
+                />
             </FormControl>
           </Paper>
         </Grid>
         <Grid item xs={6} sm={4}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="celular" label="Celular" variant="outlined" onChange={e => setCelular(e.target.value)}/>
+                <TextField id="celular" label="Celular" variant="outlined" onChange={handleCel}
+                  value={values.celular}
+                  name="celular"
+                  InputProps={{
+                    inputComponent: PhoneFormatNumber,
+                  }}
+                />
             </FormControl>
           </Paper>
         </Grid>
@@ -227,7 +305,13 @@ export default function FullWidthGrid() {
         <Grid item xs={12} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="cpf" label="CPF" variant="outlined" onChange={e => setCpf(e.target.value)}/>
+                <TextField id="cpf" label="CPF" variant="outlined" onChange={handleCpf}
+                  value={values.cpf}
+                  name="cpf"
+                  InputProps={{
+                    inputComponent: CpfFormatCustom,
+                  }}
+                />
             </FormControl>
           </Paper>
         </Grid>
@@ -260,49 +344,67 @@ export default function FullWidthGrid() {
           <Grid item xs={2}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="cep" label="cep" variant="outlined"/>
+                  <TextField id="cep" label="CEP" variant="outlined" onChange={(e) => {setZipCode(e.target.value)}}/>
               </FormControl>
             </Paper>
           </Grid>
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="logradouro" label="Logradouro" variant="outlined" />
+                  <TextField id="logradouro" label="Logradouro" variant="outlined" 
+                    InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.street) : ''} 
+                    onChange={e => setLogradouro(e.target.value)}
+                  />
               </FormControl>
             </Paper>
           </Grid>
           <Grid item xs={4}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="bairro" label="bairro" variant="outlined"/>
+                  <TextField id="bairro" label="bairro" variant="outlined"
+                    InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.neighborhood) : ''} 
+                    onChange={e => setBairro(e.target.value)}
+                  />
               </FormControl>
             </Paper>
           </Grid>
           <Grid item xs={5}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="complemento" label="Complemento" variant="outlined"/>
+                  <TextField id="complemento" label="Complemento" variant="outlined"
+                    onChange={e => setComplemento(e.target.value)}
+                  />
               </FormControl>
             </Paper>
           </Grid>
           <Grid item xs={2}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="numero" label="Número" variant="outlined"/>
+                  <TextField id="numero" label="Número" variant="outlined"
+                    onChange={e => setNumero(e.target.value)}
+                  />
               </FormControl>
             </Paper>
           </Grid>
           <Grid item xs={2}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="estado" label="estado" variant="outlined"/>
+                  <TextField id="estado" label="estado" variant="outlined"
+                    InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.state) : ''}
+                    onChange={e => setEstado(e.target.value)}
+                  >
+                    
+                  </TextField>
               </FormControl>
             </Paper>
           </Grid>
           <Grid item xs={3}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="cidade" label="cidade" variant="outlined"/>
+                  <TextField id="cidade" label="cidade" variant="outlined"
+                    InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.city) : ''} 
+                    onChange={e => setCidade(e.target.value)}
+                  />
               </FormControl>
             </Paper>
           </Grid>
@@ -311,7 +413,3 @@ export default function FullWidthGrid() {
     </Paper>
   );
 }
-
-{/* <FormControl fullWidth> 
-<TextField id="outlined-basic" label="Outlined" variant="outlined"/>
-</FormControl> */}

@@ -13,6 +13,7 @@ export function Register (props){
   
      async function handleRegister(){
         const {data} = await api.post('user', {email, password});
+        await api.post('endereco', {user_id: data.id});
         console.log(data);
         localStorage.setItem('token', data.token);
         localStorage.setItem('id', data.id);
