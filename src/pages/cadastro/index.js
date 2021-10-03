@@ -1,5 +1,4 @@
 import React from 'react';
-import Default from '../default/index';
 import {Box, Container} from '@material-ui/core'
 import InputAdornments from './form/form';
 import { Header } from '../header/header';

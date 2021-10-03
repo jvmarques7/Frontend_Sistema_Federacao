@@ -12,7 +12,6 @@ import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import { Paper } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
-import PersonIcon from '@mui/icons-material/Person';
 
 function HomeIcon(props) {
   return (
@@ -53,18 +52,18 @@ export default function NavBar() {
   function handleListItemClick(event, index){
     setSelectedIndex(selectedIndex => [...selectedIndex, index]
       );
-      console.log(index);
 
-      if(index == 0){
-        history.push('/home');
-      }
-      if(index == 1){
-        history.push('/area_atleta');
-      }
-      if(index == 4){
+      if(index === 0){
         history.push('/');
       }
-      if(index == 3){
+      if(index === 1){
+        history.push('/area_atleta');
+      }
+      if(index === 4){
+        localStorage.clear()
+        history.push('/sign');
+      }
+      if(index === 3){
         history.push('/calendario');
       }
 

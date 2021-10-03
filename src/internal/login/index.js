@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import api from "../../config/services/api";
-import loginImg from "../../login.svg";
 import {Paper, Snackbar, Stack} from "@mui/material";
 import { Container } from "@material-ui/core";
 import MuiAlert from '@mui/material/Alert';
@@ -25,7 +24,6 @@ export function InternalLogin(props){
         localStorage.setItem('token', data.token);
         history.push('/intranet_home');
       }else{
-          console.log(data)
           handleClickOpen();
       }
     }

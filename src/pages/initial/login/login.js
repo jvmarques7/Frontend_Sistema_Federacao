@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import api from '../../../config/services/api'
 import loginImg from "../../../login.png";
 import { useHistory } from "react-router-dom";
 import {Box} from "@material-ui/core"
 import { Snackbar, Stack } from "@mui/material";
 import MuiAlert from '@mui/material/Alert';
+import { toast } from "react-toastify";
 
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -12,6 +13,18 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
  export function Login (props) {
 
+    useEffect(() => {
+      function load(){
+        if(localStorage.getItem('token') !== null){
+          history.push('/');
+        }
+      }
+      load()
+    }, []);
+
+  const notify = () => toast.success(textLogin, {theme: 'colored'});
+  let textLogin = '';
+  const notifyWarning = () => toast.warning(textLogin);
   let history = useHistory();
 
   const [email, setEmail] = useState();
@@ -21,12 +34,25 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 
    async function handleLogin(){
     const {data} = await api.post('login', {email, password});
+    
     if(data.token){
+      const response = await api.get(`find_user/${email}`);
       localStorage.setItem('token', data.token);
-      history.push('/home');
+      localStorage.setItem('email', email);
+      if(response.data.cpf){
+        textLogin = `Seja bem vindo(a) ${response.data.nomeCompleto}`
+        notify();
+        history.push('/');
+      }else{
+        textLogin = 'Seja bem vindo(a)'
+        notify();
+        textLogin = 'Por favor, complete seu cadastro para continuar..'
+        notifyWarning();
+        history.push(`/cadastro/${response.data.id}`)
+      }
     }else{
-        console.log(data)
         handleClickOpen();
+        history.push('/sign');
     }
   }
       const handleClickOpen = () => {
@@ -47,11 +73,13 @@ const Alert = React.forwardRef(function Alert(props, ref) {
           <div className="form">
             <div className="form-group">
               <label htmlFor="email">Email</label>
-              <input type="email" name="email" placeholder="email" onChange={e => setEmail(e.target.value)} />
+              <input type="email" name="email" placeholder="email" onChange={e => setEmail(e.target.value)} 
+              maxLength="50"/>
             </div>
             <div className="form-group">
               <label htmlFor="password">Senha</label>
-              <input type="password" name="senha" placeholder="senha"  onChange={e => setPassword(e.target.value)}/>
+              <input type="password" name="senha" placeholder="senha"  onChange={e => setPassword(e.target.value)}
+              maxLength="25"/>
             </div>
           </div>
         </Box>
@@ -70,7 +98,6 @@ const Alert = React.forwardRef(function Alert(props, ref) {
                         </Snackbar>
                     </Stack>
         </div>
-        <a href="blank"><h5>Esqueci minha senha</h5></a>
       </div>
     );
   

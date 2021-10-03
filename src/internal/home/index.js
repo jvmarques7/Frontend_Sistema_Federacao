@@ -5,9 +5,7 @@ import Container from "@material-ui/core/Container";
 import Box from "@material-ui/core/Box";
 import {Header} from "../../pages/header/header";
 import Card from "@material-ui/core/Card";
-import api from "../../config/services/api";
 import NavBarAdmin from "../components/NavMenuAdmin";
-//import { Link } from 'react-router-dom';
 
 function Home (){
 

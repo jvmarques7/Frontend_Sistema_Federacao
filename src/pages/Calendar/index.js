@@ -1,4 +1,4 @@
-import { Container, Box, Card, Button, Grid } from "@mui/material";
+import { Container, Box, Card, /*Button, Grid*/ } from "@mui/material";
 import React from "react";
 import NavBar from "../../components/navBar/style";
 import {Main, useStyles} from "../default/style"
@@ -29,7 +29,7 @@ export function Calendar(){
                         <NavBar />
                         <Card className={classes.card} sx={{direction:"column", justifyContent:"flex-start", padding: 4, minHeight:500}}>
                             
-                            <div width="90%">
+                            <Box width="90%">
                             <Tittle>Calendário de Eventos</Tittle>
                                 <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
                                     <AccordionSummary
@@ -43,19 +43,20 @@ export function Calendar(){
                                     <Typography sx={{ color: 'text.secondary' }}>17/09/2021</Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
-                                    <Typography display='flex' direction='column' justifyContent='space-between'>
-                                        <div>
+                                    <Typography display='flex' direction='column' justifyContent='space-between'
+                                        value="Este campeonato está disponível para inscrição. Clique no botão ao lado para se inscrever.">
+                                        {/* <p>
                                             Este campeonato está disponível para inscrição. Clique no botão ao lado para se inscrever.
-                                        </div>
-                                        <Grid display='flex' sx={{paddingLeft: 4}}>    
+                                        </p> */}
+                                        {/* <Grid display='flex' sx={{paddingLeft: 4}}>    
                                             <Button variant="contained" color="primary" >
                                                 Inscrever
                                             </Button>
-                                        </Grid>
+                                        </Grid> */}
                                     </Typography>
                                     </AccordionDetails>
                                 </Accordion>
-                                <p padding='16px'/>
+                                <br />
                                 <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
                                     <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}
@@ -68,19 +69,20 @@ export function Calendar(){
                                     </Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
-                                    <Typography display='flex' direction='column' justifyContent='space-between' alignItems='center'>
-                                        <div>
+                                    <Typography display='flex' direction='column' justifyContent='space-between' alignItems='center'
+                                        value="Este campeonato está disponível para inscrição. Clique no botão ao lado para se inscrever.">
+                                        {/* <p>
                                             Este campeonato está disponível para inscrição. Clique no botão ao lado para se inscrever.
-                                        </div>
-                                        <Grid display='flex' sx={{paddingLeft: 4}}>    
+                                        </p> */}
+                                        {/* <Grid display='flex' sx={{paddingLeft: 4}}>    
                                             <Button variant="contained" color="primary" >
                                                 Inscrever
                                             </Button>
-                                        </Grid>
+                                        </Grid> */}
                                     </Typography>
                                     </AccordionDetails>
                                 </Accordion>
-                                <p padding='16px'/>
+                                <br />
                                 <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
                                     <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}
@@ -95,19 +97,20 @@ export function Calendar(){
                                     </Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
-                                    <Typography display='flex' direction='column' justifyContent='space-between' alignItems='center'>
-                                        <div>
+                                    <Typography display='flex' direction='column' justifyContent='space-between' alignItems='center'
+                                        value="Este campeonato não está mais disponível para inscrição.">
+                                        {/* <p>
                                             Este campeonato não está mais disponível para inscrição.
-                                        </div>
-                                        <Grid display='flex' sx={{paddingLeft: 4}}>    
+                                        </p> */}
+                                        {/* <Grid display='flex' sx={{paddingLeft: 4}}>    
                                             <Button disabled variant="contained" color="primary" >
                                                 Inscrever
                                             </Button>
-                                        </Grid>
+                                        </Grid> */}
                                     </Typography>
                                     </AccordionDetails>
                                 </Accordion>
-                                <p padding='16px'/>
+                                <br />
                                 <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
                                     <AccordionSummary
                                     expandIcon={<ExpandMoreIcon />}
@@ -120,19 +123,20 @@ export function Calendar(){
                                     </Typography>
                                     </AccordionSummary>
                                     <AccordionDetails>
-                                    <Typography display='flex' direction='column' justifyContent='space-between' alignItems='center'>
-                                        <div>
+                                    <Typography display='flex' direction='column' justifyContent='space-between' alignItems='center'
+                                        value="Este campeonato está disponível para inscrição. Clique no botão ao lado para se inscrever.">
+                                        {/* <p>
                                             Este campeonato está disponível para inscrição. Clique no botão ao lado para se inscrever.
-                                        </div>
-                                        <Grid display='flex' sx={{paddingLeft: 4}}>    
+                                        </p> */}
+                                        {/* <Grid display='flex' sx={{paddingLeft: 4}}>    
                                             <Button variant="contained" color="primary" >
                                                 Inscrever
                                             </Button>
-                                        </Grid>
+                                        </Grid> */}
                                     </Typography>
                                     </AccordionDetails>
                                 </Accordion>
-                            </div>
+                            </Box>
                         </Card>
                     </Box>
                 </Container>

@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useState , useEffect} from 'react';
 import { Box } from '@material-ui/core';
 import { Grid, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Tittle } from '../style';
+import api from '../../../config/services/api';
+import { toast } from 'react-toastify';
+import Moment from 'react-moment'
+import 'moment-timezone';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body1,
@@ -17,14 +21,120 @@ const Info = styled(Grid)(({ theme }) => ({
   justifyContent: "flex-start"
 }));
 
-const InfoTittle = styled(Grid)(({ theme }) => ({
-  direcition: "column",
-  justifyContent: "flex-end"
-}));
-
 
 export default function FormAreaAtleta() {
 
+    const [loadingEnd, setLoadingEnd] = useState(false);
+    const [loadingMod, setLoadingMod] = useState(false);
+    const [loadingAtu, setLoadingAtu] = useState(false);
+    const [loadingCat, setLoadingCat] = useState(false);
+
+//Carregar User
+    const [user, setUser] = useState({});
+    useEffect(() => {
+        async function loadUser() {
+            try {
+                const {data} = await api.get(`find_user/${localStorage.email}`);
+                setUser({
+                    ...data
+                });
+                setLoadingMod(true)
+                setLoadingEnd(true)
+                setLoadingAtu(true)
+                setLoadingCat(true)
+            } catch (err) {
+                toast.error(err);
+            }
+    }
+        loadUser();
+    }, []);
+
+//Carregar Endereço
+    const [endereco, setEndereco] = useState({});
+    useEffect(() => {
+        async function loadEndereco() {
+            try {
+                const user_id = await user.id;
+                const {data} = await api.get(`endereco/${user_id}`);
+                
+                setEndereco({
+                    ...data
+                });
+                
+            } catch (err) {
+                toast.error(err);
+            }
+        }
+        loadEndereco();
+    }, [loadingEnd]);    
+   
+//Carregar Atuacao
+    const [atuacao, setAtuacao] = useState({});
+    useEffect(() => {
+        async function loadAtuacao() {
+            try {
+                const atuacao_id = await user.atuacao_id
+                const {data} = await api.get(`atuacao/${atuacao_id}`);
+                
+                setAtuacao({
+                    ...data
+                });
+                
+            } catch (err) {
+                toast.error(err);
+            }
+        }
+    loadAtuacao();
+    }, [loadingAtu]);
+
+//Carregar Modalidade
+    const [modalidade, setModalidade] = useState({});
+    useEffect(() => {
+    async function loadModalidade() {
+        try {
+            const modalidade_id = await user.modalidade_id
+            // alert(modalidade_id)
+            const {data} = await api.get(`modalidade/${modalidade_id}`);
+            
+            setModalidade({
+                ...data
+            });
+        } catch (err) {
+            toast.error(err);
+        }
+    }
+    loadModalidade();
+}, [loadingMod]);
+
+//Carregar Categoria
+    const [categoria, setCategoria] = useState({});
+    useEffect(() => {
+        async function loadCategoria() {
+            try {
+                const categoria_id = await user.categoria_id
+                const {data} = await api.get(`categoria/${categoria_id}`);
+                
+                setCategoria({
+                    ...data
+                });
+            } catch (err) {
+                toast.error(err);
+            }
+        }
+        loadCategoria();
+    }, [loadingCat]);
+
+    function getAge(dt) {
+        var today = new Date();
+        var birthDate = new Date(dt);
+        var age = today.getFullYear() - birthDate.getFullYear();
+        var m = today.getMonth() - birthDate.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+        {
+            age--;
+        }
+        return age;
+    }
   return (
 
     <div>
@@ -38,17 +148,17 @@ export default function FormAreaAtleta() {
               </Grid>
               <Grid item xs={4}>
                   <Item>
-                      <Info container>Atuação:</Info>
+                      <Info container>Atuação: {atuacao.atuacao}</Info>
                   </Item>
               </Grid>
               <Grid item xs={4}>
                   <Item>
-                      <Info container>Modalidade:</Info>
+                      <Info container>Modalidade: {modalidade.modalidade}</Info>
                   </Item>
               </Grid>
               <Grid item xs={4}>
                   <Item>
-                      <Info container>Categoria:</Info>
+                      <Info container>Categoria: {categoria.categoria}</Info>
                   </Item>
               </Grid>
           </Grid>
@@ -60,42 +170,49 @@ export default function FormAreaAtleta() {
               </Grid>
               <Grid item xs={8}>
                   <Item>
-                      <Info container>Nome Completo:</Info>
+                      <Info container>Nome Completo: {user.nomeCompleto}</Info>
                   </Item>
               </Grid>
               <Grid item xs={4}>
                   <Item>
-                      <Info container>Sexo:</Info>
+                      <Info container>Sexo: {user.sexo}</Info>
                   </Item>
               </Grid>
               <Grid item xs={4}>
                   <Item>
-                      <Info container>Data de Nascimento:</Info>
+                      <Info container><span>
+                        Idade:{" "+ getAge(user.dt_nascimento) +" anos ("}
+                        <Moment format="DD/MM/YYYY">
+                             {user.dt_nascimento}
+                        </Moment>
+                        {")"}
+                        </span>
+                    </Info>
                   </Item>
               </Grid>
               <Grid item xs={3}>
                   <Item>
-                      <Info container>Naturalidade:</Info>
+                      <Info container>Naturalidade: {user.naturalidade}</Info>
                   </Item>
               </Grid>
               <Grid item xs={5}>
                   <Item>
-                      <Info container>Clube:</Info>
+                      <Info container>Clube: {user.clube}</Info>
                   </Item>
               </Grid>
               <Grid item xs={3}>
                   <Item>
-                  <Info container>Telefone:</Info>
+                  <Info container>Telefone: {user.telefone}</Info>
                   </Item>
               </Grid>
               <Grid item xs={3}>
                   <Item>
-                      <Info container>Celular:</Info>
+                      <Info container>Celular: {user.celular}</Info>
                   </Item>
               </Grid>
               <Grid item xs={6}>
                   <Item>
-                      <Info container>Email:</Info>
+                      <Info container>Email: {user.email}</Info>
                   </Item>
               </Grid>
           </Grid>
@@ -107,22 +224,22 @@ export default function FormAreaAtleta() {
               </Grid>
               <Grid item xs={3}>
                   <Item>
-                      <Info container>CPF:</Info>
+                      <Info container>CPF: {user.cpf}</Info>
                   </Item>
               </Grid>
               <Grid item xs={3}>
                   <Item>
-                      <Info container>RG:</Info>
+                      <Info container>RG: {user.rg}</Info>
                   </Item>
               </Grid>
               <Grid item xs={3}>
                   <Item>
-                      <Info container>Passaporte:</Info>
+                      <Info container>Passaporte: {user.passaporte}</Info>
                   </Item>
               </Grid>
               <Grid item xs={3}>
                   <Item>
-                      <Info container>Naturalidade:</Info>
+                      <Info container>Naturalidade: {user.naturalidade}</Info>
                   </Item>
               </Grid>
           </Grid>
@@ -134,37 +251,37 @@ export default function FormAreaAtleta() {
               </Grid>
               <Grid item xs={6}>
                   <Item>
-                      <Info container>Logradouro:</Info>
+                      <Info container>Logradouro: {endereco.logradouro}</Info>
                   </Item>
               </Grid>
               <Grid item xs={4}>
                   <Item>
-                      <Info container>Bairro:</Info>
+                      <Info container>Bairro: {endereco.bairro}</Info>
                   </Item>
               </Grid>
               <Grid item xs={2}>
                   <Item>
-                      <Info container>CEP:</Info>
+                      <Info container>CEP: {endereco.cep}</Info>
                   </Item>
               </Grid>
               <Grid item xs={5}>
                   <Item>
-                      <Info container>Complemento:</Info>
+                      <Info container>Complemento: {endereco.complemento}</Info>
                   </Item>
               </Grid>
               <Grid item xs={2}>
                   <Item>
-                      <Info container>Número:</Info>
+                      <Info container>Número: {endereco.numero}</Info>
                   </Item>
               </Grid>
               <Grid item xs={2}>
                   <Item>
-                      <Info container>Estado:</Info>
+                      <Info container>Estado: {endereco.estado}</Info>
                   </Item>
               </Grid>
               <Grid item xs={3}>
                   <Item>
-                      <Info container>Cidade:</Info>
+                      <Info container>Cidade: {endereco.cidade}</Info>
                   </Item>
               </Grid>
           </Grid>
@@ -172,7 +289,3 @@ export default function FormAreaAtleta() {
     </div>
   );
 }
-
-{/* <FormControl fullWidth> 
-<TextField id="outlined-basic" label="Outlined" variant="outlined"/>
-</FormControl> */}

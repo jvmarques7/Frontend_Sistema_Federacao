@@ -3,7 +3,7 @@ import {Logo, RightSize} from "./style";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from "@material-ui/core/Toolbar";
 import { useStyles } from "./style";
-import { Button } from "@material-ui/core";
+// import { Button } from "@material-ui/core";
 import Avatar from '@material-ui/core/Avatar';
 
 export function Header (){

@@ -5,7 +5,7 @@ import Initial from '../pages/initial';
 import { BrowserRouter } from 'react-router-dom';
 import Default from '../pages/default';
 import { AreaAtleta } from '../pages/areaAtleta';
-import { Calendar } from '../pages/Calendar';
+import { Calendar } from '../pages/calendar';
 import { InternalLogin } from '../internal/login';
 import { Home } from '../internal/home';
 
@@ -14,9 +14,9 @@ import { Home } from '../internal/home';
         <BrowserRouter>
             <Switch>
                 {/* Rotas Usuários */}
-                <Route path="/" exact component={Initial} />
+                <Route path="/sign" component={Initial} />
                 <Route path="/cadastro/:id" component={Cadastro} />
-                <Route path="/home" component={Default} />
+                <Route path="/" exact component={Default} />
                 <Route path="/area_atleta" component={AreaAtleta} />
                 <Route path="/calendario" component={Calendar} />
                 {/* Rotas Intranet */}

@@ -4,13 +4,13 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from '@material-ui/core';
 import { Seccion, Tittle } from '../style';
-import { useHistory, useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router-dom';
 import api from '../../../config/services/api';
 import cep from 'cep-promise';
-import Portal from '@mui/material/Portal';
 import { CpfFormatCustom, PhoneFormatNumber, TelFormatNumber } from '../../../components/mask/maskCpf';
-// import api from '../../../config/services/api';
-// import { useHistory } from "react-router-dom";
+import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
+import Button from 'react-bootstrap/Button';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,12 +35,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function FullWidthGrid() {
 
-  const id = useParams();
+  const notify = () => toast.error(textError, {theme: 'colored'});
+  let textError = '';
+
+  const [validObject, setValidObject] = useState();
+  const {id} = useParams();
   
   let history = useHistory();
 
   const [show, setShow] = useState(false);
-  const container = React.useRef(null);
 
   const [nomeCompleto, setNomeCompleto] = useState();
   const [rg, setRg] = useState();
@@ -65,7 +68,7 @@ export default function FullWidthGrid() {
 
   async function handleCadastro(){
 
-    const {data} = await api.put('completar_cadastro', {
+    setValidObject({
       id,
       cpf,
       rg,
@@ -83,18 +86,138 @@ export default function FullWidthGrid() {
       modalidade_id,
       categoria_id,
       cep : zipCode,
-      logradouro,
+      logradouro: adress.street,
       complemento,
-      bairro,
+      bairro: adress.neighborhood,
       numero,
-      cidade,
-      estado,
+      cidade: adress.city,
+      estado: adress.state,
       user_id: id
-    });
-    console.log(data)
-    history.push('/home');
+    })
+
+    if(validate()){
+      const {data} = await api.put('completar_cadastro', {
+        id,
+        cpf,
+        rg,
+        email,
+        name: nomeCompleto,
+        dt_nascimento,
+        naturalidade,
+        clube,
+        sexo,
+        telefone,
+        celular,
+        passaporte,
+        nacionalidade,
+        atuacao_id,
+        modalidade_id,
+        categoria_id,
+        cep : zipCode,
+        logradouro: adress.street,
+        complemento,
+        bairro: adress.neighborhood,
+        numero,
+        cidade: adress.city,
+        estado: adress.state,
+        user_id: id
+      });
+      history.push('/');
+    }else{
+      if(cpf === undefined){
+        textError = 'Campo CPF é obrigatório!'
+        notify();
+      }if(rg === undefined){
+        textError = 'Campo RG é obrigatório!'
+        notify();
+      }if(nomeCompleto === undefined){
+        textError = 'Campo Nome Completo é obrigatório!'
+        notify();
+      }if(dt_nascimento === undefined){
+        textError = 'Campo Data de nascimento é obrigatório!'
+        notify();
+      }if(sexo === undefined){
+        textError = 'Campo Sexo é obrigatório!'
+        notify();
+      }if(celular === undefined){
+        textError = 'Campo Celular é obrigatório!'
+        notify();
+      }if(nacionalidade === undefined){
+        textError = 'Campo RG obrigatório!'
+        notify();
+      }if(atuacao_id === undefined){
+        textError = 'A Atuação é obrigatória!'
+        notify();
+      }if(modalidade_id === undefined){
+        textError = 'A Modalidade é obrigatória!'
+        notify();
+      }if(categoria_id === undefined){
+        textError = 'A Categoria é obrigatória!'
+        notify();
+      }if(zipCode === undefined){
+        textError = 'Campo CEP é obrigatório!'
+        notify();
+      }if(adress.street === undefined){
+        textError = 'Campo Logradouro é obrigatório!'
+        notify();
+      }if(adress.neighborhood === undefined){
+        textError = 'Campo Bairro é obrigatório!'
+        notify();
+      }if(adress.city === undefined){
+        textError = 'Campo Cidade é obrigatório!'
+        notify();
+      }if(adress.state === undefined){
+        textError = 'Campo Estado é obrigatório!'
+        notify();
+      }if(adress.street === undefined){
+        
+      }
+    }
+            
+}
+
+async function handleLogout(){
+    localStorage.clear()
+    history.push('/sign');
+}
+
+  function validate(){
+    if(cpf === undefined){
+      return false;
+    }if(rg === undefined){
+      return false;
+    }if(nomeCompleto === undefined){
+      return false;
+    }if(dt_nascimento === undefined){
+      return false;
+    }if(sexo === undefined){
+      return false;
+    }if(celular === undefined){
+      return false;
+    }if(nacionalidade === undefined){
+      return false;
+    }if(atuacao_id === undefined){
+      return false;
+    }if(modalidade_id === undefined){
+      return false;
+    }if(categoria_id === undefined){
+      return false;
+    }if(zipCode === undefined){
+      return false;
+    }if(adress.street === undefined){
+      return false;
+    }if(adress.neighborhood === undefined){
+      return false;
+    }if(adress.city === undefined){
+      return false;
+    }if(adress.state === undefined){
+      return false;
+    }if(adress.street === undefined){
+      return false;
+    }
+    return true;
   }
-  
+
   const [atuacao_id, setAtuacao] = React.useState('');
   const handleAtuacao = (event) => {
   setAtuacao(event.target.value);
@@ -118,7 +241,6 @@ export default function FullWidthGrid() {
         const response = await cep(zipCode);
         setAdress(response);
         setShow(!show)
-        console.log(response);
       }
     }
     
@@ -154,7 +276,6 @@ export default function FullWidthGrid() {
     setCelular(e.target.value)
   };
 
-
   return (
 
     <Paper>
@@ -162,9 +283,14 @@ export default function FullWidthGrid() {
       <Box justifyContent="space-between" display="flex">
         <Tittle>Cadastro</Tittle>
         <Box margin="10px">
-          <button type="button" className="btn" onClick={handleCadastro}>
+          {/* <button type="button" className="btn" onClick={handleCadastro}>
             Salvar
           </button>
+          <button type="button" className="btn btn-secondary" >
+            Completar cadastro mais tarde
+          </button> */}
+          <Button variant="primary" onClick={handleCadastro}>Salvar</Button>{' '}
+          <Button variant="secondary" onClick={handleLogout}>Completar cadastro mais tarde</Button>{' '}
         </Box>
       </Box>
       
@@ -224,14 +350,16 @@ export default function FullWidthGrid() {
         <Grid item xs={10}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="nomeCompleto" label="Nome Completo" variant="outlined" onChange={e => setNomeCompleto(e.target.value)}/>
+                <TextField id="nomeCompleto" label="Nome Completo" variant="outlined" onChange={e => setNomeCompleto(e.target.value)}
+                inputProps={{maxlength: 80}}/>
             </FormControl>
           </Paper>
         </Grid>
         <Grid item xs={6} sm={2}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="sexo" label="Sexo" variant="outlined" onChange={e => setSexo(e.target.value)}/>
+                <TextField id="sexo" label="Sexo" variant="outlined" onChange={e => setSexo(e.target.value)}
+                inputProps={{maxlength: 12}}/>
             </FormControl>
           </Paper>
         </Grid>
@@ -254,14 +382,16 @@ export default function FullWidthGrid() {
         <Grid item xs={6} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="naturalidade" label="Naturalidade" variant="outlined" onChange={e => setNaturalidade(e.target.value)}/>
+                <TextField id="naturalidade" label="Naturalidade" variant="outlined" onChange={e => setNaturalidade(e.target.value)}
+                inputProps={{maxlength: 15}}/>
             </FormControl>
           </Paper>
         </Grid>
         <Grid item xs={6} sm={5}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="clube" label="Clube" variant="outlined" onChange={e => setClube(e.target.value)}/>
+                <TextField id="clube" label="Clube" variant="outlined" onChange={e => setClube(e.target.value)}
+                inputProps={{maxlength: 25}}/>
             </FormControl>
           </Paper>
         </Grid>
@@ -294,7 +424,7 @@ export default function FullWidthGrid() {
         <Grid item xs={6} sm={4}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="email" label="Email" onChange={e => setEmail(e.target.value)}/>
+                <TextField id="email" label="Email" value={localStorage.email} disabled onChange={e => setEmail(e.target.value)}/>
             </FormControl>
           </Paper>
         </Grid>
@@ -318,21 +448,24 @@ export default function FullWidthGrid() {
         <Grid item xs={12} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="passaporte" label="Passaporte" variant="outlined" onChange={e => setPassaporte(e.target.value)}/>
+                <TextField id="passaporte" label="Passaporte" variant="outlined" onChange={e => setPassaporte(e.target.value)}
+                inputProps={{maxlength: 11}}/>
             </FormControl>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="rg" label="RG" variant="outlined" onChange={e => setRg(e.target.value)}/>
+                <TextField id="rg" label="RG" variant="outlined" onChange={e => setRg(e.target.value)}
+                inputProps={{maxlength: 9}}/>
             </FormControl>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="nacionalidade" label="Nacionalidade" variant="outlined" onChange={e => setNacionalidade(e.target.value)}/>
+                <TextField id="nacionalidade" label="Nacionalidade" variant="outlined" onChange={e => setNacionalidade(e.target.value)}
+                inputProps={{maxlength: 25}}/>
             </FormControl>
           </Paper>
         </Grid>
@@ -344,7 +477,8 @@ export default function FullWidthGrid() {
           <Grid item xs={2}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="cep" label="CEP" variant="outlined" onChange={(e) => {setZipCode(e.target.value)}}/>
+                  <TextField id="cep" label="CEP" variant="outlined" onChange={(e) => {setZipCode(e.target.value)}}
+                  inputProps={{maxlength: 8}}/>
               </FormControl>
             </Paper>
           </Grid>
@@ -354,6 +488,7 @@ export default function FullWidthGrid() {
                   <TextField id="logradouro" label="Logradouro" variant="outlined" 
                     InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.street) : ''} 
                     onChange={e => setLogradouro(e.target.value)}
+                    inputProps={{maxlength: 35}}
                   />
               </FormControl>
             </Paper>
@@ -364,6 +499,7 @@ export default function FullWidthGrid() {
                   <TextField id="bairro" label="bairro" variant="outlined"
                     InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.neighborhood) : ''} 
                     onChange={e => setBairro(e.target.value)}
+                    inputProps={{maxlength: 25}}
                   />
               </FormControl>
             </Paper>
@@ -373,6 +509,7 @@ export default function FullWidthGrid() {
               <FormControl fullWidth> 
                   <TextField id="complemento" label="Complemento" variant="outlined"
                     onChange={e => setComplemento(e.target.value)}
+                    inputProps={{maxlength: 70}}
                   />
               </FormControl>
             </Paper>
@@ -382,6 +519,7 @@ export default function FullWidthGrid() {
               <FormControl fullWidth> 
                   <TextField id="numero" label="Número" variant="outlined"
                     onChange={e => setNumero(e.target.value)}
+                    inputProps={{maxlength: 4}}
                   />
               </FormControl>
             </Paper>
@@ -392,9 +530,8 @@ export default function FullWidthGrid() {
                   <TextField id="estado" label="estado" variant="outlined"
                     InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.state) : ''}
                     onChange={e => setEstado(e.target.value)}
-                  >
-                    
-                  </TextField>
+                    inputProps={{maxlength: 2}}
+                  />
               </FormControl>
             </Paper>
           </Grid>
@@ -404,6 +541,7 @@ export default function FullWidthGrid() {
                   <TextField id="cidade" label="cidade" variant="outlined"
                     InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.city) : ''} 
                     onChange={e => setCidade(e.target.value)}
+                    inputProps={{maxlength: 20}}
                   />
               </FormControl>
             </Paper>

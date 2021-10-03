@@ -5,8 +5,6 @@ import { Header } from "../header/header";
 import NavBar from "../../components/navBar/style";
 import { component } from "../../components/anotherComponents";
 import { Main } from "../../components/anotherComponents.js";
-import { Grid, Paper } from "@mui/material";
-import { styled } from "@mui/material/styles";
 
 export function AreaAtleta(){
 

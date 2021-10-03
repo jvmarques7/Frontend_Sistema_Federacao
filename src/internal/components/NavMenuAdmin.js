@@ -5,10 +5,8 @@ import {ListItem } from '@material-ui/core';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
-import DraftsIcon from '@material-ui/icons/Drafts';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
-import ContactSupportIcon from '@material-ui/icons/ContactSupport';
 import { Paper } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -53,7 +51,6 @@ export default function NavBarAdmin() {
   function handleListItemClick(event, index){
     setSelectedIndex(selectedIndex => [...selectedIndex, index]
       );
-      console.log(index);
 
     //   if(index == 0){
     //     history.push('/home');
@@ -67,7 +64,7 @@ export default function NavBarAdmin() {
     //   if(index == 3){
     //     history.push('/calendario');
     //   }
-      if(index == 4){
+      if(index === 4){
         history.push('/intranet');
       }
 
