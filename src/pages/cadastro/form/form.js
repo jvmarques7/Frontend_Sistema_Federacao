@@ -298,7 +298,7 @@ async function handleLogout(){
       <Seccion>Atuação</Seccion>
       <Box justifyContent="space-between" display="flex" padding="7px 9px 9px 9px">
         <FormControl variant="filled" className={classes.formControl} >
-          <InputLabel id="simple-select-filled-label">Atuacao
+          <InputLabel id="simple-select-filled-label">Atuacao*
           </InputLabel>
           <Select
             labelId="simple-select-filled-label"
@@ -313,7 +313,7 @@ async function handleLogout(){
         </FormControl>
 
         <FormControl variant="filled" className={classes.formControl}>
-          <InputLabel id="simple-select-filled-label">Modalidade</InputLabel>
+          <InputLabel id="simple-select-filled-label">Modalidade*</InputLabel>
           <Select
             labelId="simple-select-filled-label"
             id="simple-select-filled"
@@ -331,7 +331,7 @@ async function handleLogout(){
         </FormControl>
 
         <FormControl variant="filled" className={classes.formControl}>
-          <InputLabel id="simple-select-filled-label">Categoria</InputLabel>
+          <InputLabel id="simple-select-filled-label">Categoria*</InputLabel>
           <Select
             labelId="simple-select-filled-label"
             id="simple-select-filled"
@@ -350,7 +350,7 @@ async function handleLogout(){
         <Grid item xs={10}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="nomeCompleto" label="Nome Completo" variant="outlined" onChange={e => setNomeCompleto(e.target.value)}
+                <TextField id="nomeCompleto" label="Nome Completo*" variant="outlined" onChange={e => setNomeCompleto(e.target.value)}
                 inputProps={{maxlength: 80}}/>
             </FormControl>
           </Paper>
@@ -358,7 +358,7 @@ async function handleLogout(){
         <Grid item xs={6} sm={2}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="sexo" label="Sexo" variant="outlined" onChange={e => setSexo(e.target.value)}
+                <TextField id="sexo" label="Sexo*" variant="outlined" onChange={e => setSexo(e.target.value)}
                 inputProps={{maxlength: 12}}/>
             </FormControl>
           </Paper>
@@ -368,7 +368,7 @@ async function handleLogout(){
             <FormControl fullWidth> 
               <TextField
                 id="outlined-number"
-                label="Data de Nascimento"
+                label="Data de Nascimento*"
                 type="date"
                 InputLabelProps={{
                   shrink: true,
@@ -411,7 +411,7 @@ async function handleLogout(){
         <Grid item xs={6} sm={4}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="celular" label="Celular" variant="outlined" onChange={handleCel}
+                <TextField id="celular" label="Celular*" variant="outlined" onChange={handleCel}
                   value={values.celular}
                   name="celular"
                   InputProps={{
@@ -435,7 +435,7 @@ async function handleLogout(){
         <Grid item xs={12} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="cpf" label="CPF" variant="outlined" onChange={handleCpf}
+                <TextField id="cpf" label="CPF*" variant="outlined" onChange={handleCpf}
                   value={values.cpf}
                   name="cpf"
                   InputProps={{
@@ -456,7 +456,7 @@ async function handleLogout(){
         <Grid item xs={12} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="rg" label="RG" variant="outlined" onChange={e => setRg(e.target.value)}
+                <TextField id="rg" label="RG*" variant="outlined" onChange={e => setRg(e.target.value)}
                 inputProps={{maxlength: 9}}/>
             </FormControl>
           </Paper>
@@ -464,7 +464,7 @@ async function handleLogout(){
         <Grid item xs={12} sm={3}>
           <Paper className={classes.paper}>
             <FormControl fullWidth> 
-                <TextField id="nacionalidade" label="Nacionalidade" variant="outlined" onChange={e => setNacionalidade(e.target.value)}
+                <TextField id="nacionalidade" label="Nacionalidade*" variant="outlined" onChange={e => setNacionalidade(e.target.value)}
                 inputProps={{maxlength: 25}}/>
             </FormControl>
           </Paper>
@@ -477,7 +477,7 @@ async function handleLogout(){
           <Grid item xs={2}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="cep" label="CEP" variant="outlined" onChange={(e) => {setZipCode(e.target.value)}}
+                  <TextField id="cep" label="CEP*" variant="outlined" onChange={(e) => {setZipCode(e.target.value)}}
                   inputProps={{maxlength: 8}}/>
               </FormControl>
             </Paper>
@@ -485,7 +485,7 @@ async function handleLogout(){
           <Grid item xs={6}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="logradouro" label="Logradouro" variant="outlined" 
+                  <TextField id="logradouro" label="Logradouro*" variant="outlined" 
                     InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.street) : ''} 
                     onChange={e => setLogradouro(e.target.value)}
                     inputProps={{maxlength: 35}}
@@ -496,7 +496,7 @@ async function handleLogout(){
           <Grid item xs={4}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="bairro" label="bairro" variant="outlined"
+                  <TextField id="bairro" label="bairro*" variant="outlined"
                     InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.neighborhood) : ''} 
                     onChange={e => setBairro(e.target.value)}
                     inputProps={{maxlength: 25}}
@@ -527,7 +527,7 @@ async function handleLogout(){
           <Grid item xs={2}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="estado" label="estado" variant="outlined"
+                  <TextField id="estado" label="estado*" variant="outlined"
                     InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.state) : ''}
                     onChange={e => setEstado(e.target.value)}
                     inputProps={{maxlength: 2}}
@@ -538,7 +538,7 @@ async function handleLogout(){
           <Grid item xs={3}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="cidade" label="cidade" variant="outlined"
+                  <TextField id="cidade" label="cidade*" variant="outlined"
                     InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.city) : ''} 
                     onChange={e => setCidade(e.target.value)}
                     inputProps={{maxlength: 20}}
