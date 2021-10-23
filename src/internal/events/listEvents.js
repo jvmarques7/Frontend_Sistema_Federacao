@@ -63,13 +63,14 @@ const StyleSwitch = styled((props) => (
 
 export function ListEvent() {
 
+    //Expansão do Accordion
     const [expanded, setExpanded] = React.useState(false);
-    const [eventsList, setEventsList] = React.useState([]);
-
     const handleChange = (panel) => (e, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
     };
 
+    //Contrução da lista de eventos trazidos pela API
+    const [eventsList, setEventsList] = React.useState([]);
     const [open, setOpen] = React.useState();
     useEffect(() => {
         async function atualizarEventos() {
@@ -79,6 +80,7 @@ export function ListEvent() {
         atualizarEventos();
     }, [open]);
 
+    //Atualização do estado dos eventos
     function definirEstado(e) {
         if (e === 'a') {
             return "Ativo"
@@ -86,7 +88,8 @@ export function ListEvent() {
             return "Desativado"
         }
     }
-
+    //Logo abaixo segue a atualização do estado
+    //para qual será alterado
     function estadoFuturo(e) {
         if (e === 'a') {
             return "desativar"
@@ -95,6 +98,8 @@ export function ListEvent() {
         }
     }
 
+    //Definição do tipo de evento de acordo
+    //o que é trazido pela API
     function definirTipo(e) {
         if (e === 'c') {
             return "Campeonato"
@@ -103,6 +108,7 @@ export function ListEvent() {
         }
     }
 
+    //Listar atuações definidas para o evento
     function definirAtuacao(e) {
         let arr = [];
         const atuacao = e.split("");
@@ -120,6 +126,7 @@ export function ListEvent() {
         )))
     }
 
+    //Listar modalidades definidas para o evento
     function definirModalidade(e) {
         let arr = [];
         const modalidade = e.split("");
@@ -145,6 +152,7 @@ export function ListEvent() {
         )))
     }
 
+    //Listar categorias definidas para o evento
     function definirCategoria(e) {
         let arr = [];
         const categoria = e.split("");
@@ -160,6 +168,7 @@ export function ListEvent() {
         )))
     }
 
+    //Fechando e abrindo BackDrop
     const handleClose = () => {
         setOpen(false);
     };
@@ -167,55 +176,70 @@ export function ListEvent() {
         setOpen(!open);
     };
 
-    const openBackDrop = (e) => {
+    const openBackDrop = (id, est) => {
 
         async function salvarEvento(){
-            await api.put(`control_event/${e}`);
+            await api.put(`control_event/${id}`);
             setOpen(false);
             // setState(true);
         }
 
         return(
-            <Paper>
-                <Box padding="20px">
-                    <Typography variant="h6" paddingBottom="20px">
-                        O evento {e} está {definirEstado(e.estado).toLowerCase()}.
-                    </Typography>
-                    <Typography variant="h6" paddingBottom="20px">
-                        Deseja realmente {estadoFuturo(e.estado)}?
-                    </Typography>
-                    <Grid container>
-                        <Grid item xs={2}>
+            <Fragment>
+                <Paper>
+                    <Box padding="20px">
+                        <Typography variant="h6" paddingBottom="20px">
+                            O evento {id} está {definirEstado(est).toLowerCase()}.
+                        </Typography>
+                        <Typography variant="h6" paddingBottom="20px">
+                            Deseja realmente {estadoFuturo(est)}?
+                        </Typography>
+                        <Grid container display="flex" paddingTop="20px">
+                            <Grid item xs="auto" paddingRight="10px">
+                                {/* {carregarControle(e)} */}
+                                <Button variant="contained" onClick={salvarEvento}>{estadoFuturo(est)}</Button>
+                            </Grid>
+                            <Grid item xs="auto">
+                                <Button color="warning" variant="contained" onClick={handleClose}>Cancelar</Button>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                    <Grid container display="flex" paddingTop="20px">
-                        <Grid item xs="auto" paddingRight="10px">
-                            {/* {carregarControle(e)} */}
-                            <Button variant="contained" onClick={salvarEvento}>{estadoFuturo(e.estado)}</Button>
-                        </Grid>
-                        <Grid item xs="auto">
-                            <Button color="warning" variant="contained" onClick={handleClose}>Cancelar</Button>
-                        </Grid>
-                    </Grid>
-                </Box>
-            </Paper>
+                    </Box>
+                </Paper>
+            </Fragment>
         )
     }
 
-    const [confirm, setConfirm] = React.useState(false);
+    const openDeleteEvent = (id) => {
 
-    const closeConfirm = () => {
-        setConfirm(false);
-      };
+        async function excluirEvento(){
+            await api.delete(`delete_event/${id}`);
+            setOpen(false);
+        }
 
-    function openConfirm(){
-        setConfirm(true);
+        return(
+            <Fragment>
+                <Paper>
+                    <Box padding="20px">
+                        <Typography variant="h6" paddingBottom="20px">
+                            O evento {id} será excluído <b>PERMANENTEMENTE</b>.
+                        </Typography>
+                        <Typography variant="h6" paddingBottom="20px">
+                            Deseja realmente excluir?
+                        </Typography>
+                        <Grid container display="flex" paddingTop="20px">
+                            <Grid item xs="auto" paddingRight="10px">
+                                {/* {carregarControle(e)} */}
+                                <Button variant="contained" onClick={excluirEvento}>Excluir</Button>
+                            </Grid>
+                            <Grid item xs="auto">
+                                <Button color="warning" variant="contained" onClick={handleClose}>Cancelar</Button>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Paper>
+            </Fragment>
+        )
     }
-
-    // const [control, setControl] = React.useState({})
-    // function carregarControle(e){
-    //     setControl(e);
-    // }
 
     return (
         <Fragment>
@@ -283,11 +307,17 @@ export function ListEvent() {
                                     sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                                     open={open}
                                 >
-                                    {openBackDrop(e.id)}
+                                    {openBackDrop(e.id, e.estado)}
                                 </Backdrop>  
                             </Grid>
                             <Grid item>
-                                <Button id={e.id} color="error" variant="contained">Excluir</Button>
+                                <Button id={e.id} color="error" variant="contained" onClick={handleToggle}> Excluir</Button>
+                                <Backdrop
+                                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                                    open={open}
+                                >
+                                    {openDeleteEvent(e.id)}
+                                </Backdrop>
                             </Grid>
                         </Grid>
                     </AccordionDetails>
