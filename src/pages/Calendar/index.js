@@ -9,8 +9,17 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Tittle } from "./style";
+import {getWithExpiry} from "../../config/auth/isAuthenticated"
+import { useHistory } from "react-router-dom";
+
 
 export function Calendar(){
+
+    let history = useHistory();
+
+    if(getWithExpiry('token', 'email') === null){
+        history.push("/");
+    }
 
     const classes = useStyles();
 

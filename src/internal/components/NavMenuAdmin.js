@@ -52,20 +52,21 @@ export default function NavBarAdmin() {
     setSelectedIndex(selectedIndex => [...selectedIndex, index]
       );
 
-    //   if(index == 0){
-    //     history.push('/home');
-    //   }
+      if(index == 0){
+        history.push('/intranet_home');
+      }
     //   if(index == 1){
     //     history.push('/area_atleta');
     //   }
-    //   if(index == 4){
-    //     history.push('/');
-    //   }
+      if(index == 2){
+        history.push('/event_register');
+      }
     //   if(index == 3){
     //     history.push('/calendario');
     //   }
-      if(index === 4){
-        history.push('/intranet');
+      if(index === 3){
+        localStorage.clear()
+        history.push('/intranet')
       }
 
   }
@@ -94,8 +95,8 @@ export default function NavBarAdmin() {
           </ListItem>
         <ListItem
             button={true}
-            selected={selectedIndex === 3}
-            onClick={(event) => handleListItemClick(event, 3)}
+            selected={selectedIndex === 2}
+            onClick={(event) => handleListItemClick(event, 2)}
           >
             <ListItemIcon>
               <CalendarTodayIcon />
@@ -117,8 +118,8 @@ export default function NavBarAdmin() {
         <List component="nav" aria-label="secondary mailbox folder">
         <ListItem
             button={true}
-            selected={selectedIndex === 4}
-            onClick={(event) => handleListItemClick(event, 4)}
+            selected={selectedIndex === 3}
+            onClick={(event) => handleListItemClick(event, 3)}
           >
             <ListItemIcon>
               <LogoutIcon />

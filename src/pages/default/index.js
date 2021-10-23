@@ -9,7 +9,7 @@ import Card from "@material-ui/core/Card";
 import api from "../../config/services/api";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
-//import { Link } from 'react-router-dom';
+import {getWithExpiry} from "../../config/auth/isAuthenticated"
 
 function Default (){
 
@@ -18,24 +18,36 @@ function Default (){
 
     let history = useHistory();
 
+    try{
+        if(getWithExpiry('token', 'email')===null){
+            history.push("/sign");
+        }
+    }catch(err){
+        
+    }
+
     useEffect(() => {
         async function verifyUser(){
-            const email = localStorage.getItem('email')
-            const response = await api.get(`find_user/${email}`)
-      if(response.data.cpf){
-        history.push('/');
-      }else{
-        if(localStorage.getItem('token') && localStorage.getItem('token') !== undefined){
-            text = 'Por favor, complete seu cadastro para continuar..'
-            notify();
-            history.push(`/cadastro/${response.data.id}`)
-        }else{
-            history.push('/sign');
-        }
-      }
-        }
-        verifyUser();
-    },[])
+            try{
+                const email = localStorage.getItem('email')
+                const response = await api.get(`find_user/${email}`)
+                if(response.data.cpf && localStorage.getItem('token')){
+                    history.push('/');
+                }else{
+                    if(localStorage.getItem('token') && localStorage.getItem('token') !== undefined){
+                        text = 'Por favor, complete seu cadastro para continuar..'
+                        notify();
+                        history.push(`/cadastro/${response.data.id}`)
+                    }else{
+                        history.push('/sign');
+                    }
+                }
+            }catch(err){
+                
+            }
+                }
+                verifyUser();
+        },[])
 
     const classes = useStyles();
 

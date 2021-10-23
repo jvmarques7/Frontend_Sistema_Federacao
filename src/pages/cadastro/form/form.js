@@ -496,7 +496,7 @@ async function handleLogout(){
           <Grid item xs={4}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="bairro" label="bairro*" variant="outlined"
+                  <TextField id="bairro" label="Bairro*" variant="outlined"
                     InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.neighborhood) : ''} 
                     onChange={e => setBairro(e.target.value)}
                     inputProps={{maxlength: 25}}
@@ -527,7 +527,7 @@ async function handleLogout(){
           <Grid item xs={2}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="estado" label="estado*" variant="outlined"
+                  <TextField id="estado" label="Estado*" variant="outlined"
                     InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.state) : ''}
                     onChange={e => setEstado(e.target.value)}
                     inputProps={{maxlength: 2}}
@@ -538,7 +538,7 @@ async function handleLogout(){
           <Grid item xs={3}>
             <Paper className={classes.paper}>
               <FormControl fullWidth> 
-                  <TextField id="cidade" label="cidade*" variant="outlined"
+                  <TextField id="cidade" label="Cidade*" variant="outlined"
                     InputLabelProps={show ? {shrink: true} : {shrink: false}} value={show ? (adress.city) : ''} 
                     onChange={e => setCidade(e.target.value)}
                     inputProps={{maxlength: 20}}

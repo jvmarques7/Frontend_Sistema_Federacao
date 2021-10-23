@@ -12,15 +12,27 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
  export function Login (props) {
-
+ 
     useEffect(() => {
       function load(){
-        if(localStorage.getItem('token') !== null){
-          history.push('/');
-        }
+          if(localStorage.getItem('token')!==null){
+            history.push('/');
+          }
       }
       load()
     }, []);
+
+  function setWithExpiry(key, token, ttl) {
+    const now = new Date()
+  
+    // `item` is an object which contains the original value
+    // as well as the time when it's supposed to expire
+    const item = {
+      value: token,
+      expiry: now.getTime() + ttl,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  }
 
   const notify = () => toast.success(textLogin, {theme: 'colored'});
   let textLogin = '';
@@ -37,7 +49,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
     
     if(data.token){
       const response = await api.get(`find_user/${email}`);
-      localStorage.setItem('token', data.token);
+      setWithExpiry('token', data.token, 60000);
       localStorage.setItem('email', email);
       if(response.data.cpf){
         textLogin = `Seja bem vindo(a) ${response.data.nomeCompleto}`

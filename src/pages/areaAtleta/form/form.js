@@ -1,5 +1,6 @@
 import React, { useState , useEffect} from 'react';
 import { Box } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 import { Grid, Paper } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { Tittle } from '../style';
@@ -7,6 +8,19 @@ import api from '../../../config/services/api';
 import { toast } from 'react-toastify';
 import Moment from 'react-moment'
 import 'moment-timezone';
+import Button from 'react-bootstrap/Button';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+
+const useStyles = makeStyles((theme) => ({
+    paper:{
+      margin: 16,
+      padding: 16,
+      width: 225,
+      maxHeight: 300,
+      // background: 'green'
+    }
+  }));
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body1,
@@ -124,6 +138,7 @@ export default function FormAreaAtleta() {
         loadCategoria();
     }, [loadingCat]);
 
+    //Calcular Idade
     function getAge(dt) {
         var today = new Date();
         var birthDate = new Date(dt);
@@ -135,11 +150,34 @@ export default function FormAreaAtleta() {
         }
         return age;
     }
+
+    const [open, setOpen] = React.useState(false);
+    const handleClose = () => {
+        setOpen(false);
+    };
+    const handleToggle = () => {
+        setOpen(!open);
+    };
+
+    const classes = useStyles;
+
   return (
 
     <div>
       <Box sx={{ width: "100%", direction:"column", alignContent:"center", justifyContent:"center"  }}>
-          <Tittle>Meu cadastro</Tittle>
+        <Box justifyContent="space-between" display="flex">
+            <Tittle>Cadastro</Tittle>
+            <Box margin="10px" padding="10px">
+                <Button variant="primary" onClick={handleToggle}>Federar</Button>{' '}
+                <Backdrop
+                    sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                    open={open}
+                    onClick={handleClose}
+                >
+                    <Paper className={classes.paper}>Espaço para Federar-se</Paper>
+                </Backdrop>
+            </Box>
+        </Box>
           <Grid sx={{padding: '0 20px 20px 20px'}} container rowSpacing={1.5} columnSpacing={2}>
               <Grid item xs={12}>
                   <Item sx={{fontWeight: "bold", background: "linear-gradient(lightblue, white)"}}>

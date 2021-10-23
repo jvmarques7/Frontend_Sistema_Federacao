@@ -8,6 +8,7 @@ import { AreaAtleta } from '../pages/areaAtleta';
 import { Calendar } from '../pages/calendar';
 import { InternalLogin } from '../internal/login';
 import { Home } from '../internal/home';
+import { EventRegister } from '../internal/events';
 
   export default function Routes() {
     return (
@@ -22,6 +23,7 @@ import { Home } from '../internal/home';
                 {/* Rotas Intranet */}
                 <Route path="/intranet" component={InternalLogin} />
                 <Route path="/intranet_home" component={Home} />
+                <Route path="/event_register" component={EventRegister} />
             </Switch>
         </BrowserRouter>
     );
